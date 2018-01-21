@@ -26,20 +26,17 @@ def login():
 def fetch_ads():
     url = base_url + ads_url
     nav.open(url)
-    print "VOS ANNONCES"
-    for ad in (json.loads(nav.response().read())['ads']):
-        print json.loads(nav.response().read())['ads'][ad]['title'] + "\t" +  json.loads(nav.response().read())['ads'][ad]['superState']
-    print "-------------"
-
+    return json.loads(nav.response().read())['ads']
 
 def show_ad(id):
     url = base_url + ad_view_url % id
     nav.open(url)
     print nav.response().read()
 
-
-
-
 login()
-fetch_ads()
-#show_ad("1307431714")
+ads = fetch_ads()
+
+for ad in ads:
+    print ad + " : " + ads[ad]['title']
+ad_id = raw_input("enter the ad id to show")
+print ads[ad_id]
